@@ -1,3 +1,6 @@
+// this is going to inject the config vars inside the .env file
+require("dotenv").config();
+
 console.log(process.argv);
 
 const cohort1 = process.argv[2];
@@ -10,7 +13,7 @@ if (cohort1 === "web-49")
 }
 else
 {
-    console.log(`booooh ${cohort1}!`);
+    console.log(`booooh cohort ${cohort1}!`);
 }
 
 console.log(`the user is ${user}`);
@@ -24,7 +27,14 @@ app.get("/hello", (req, res) =>
     res.json({ message: "hey there" });
 });
 
-const port = 9000;
+app.get("/", (req, res) =>
+{
+    res.send(
+        `<h1>Web 49 Rocks!</h1>`
+    );
+});
+
+const port = process.env.PORT || 9000; // heroku wants to set its own port
 
 app.listen(port, () =>
 {
